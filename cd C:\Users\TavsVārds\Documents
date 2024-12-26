@@ -1,0 +1,77 @@
+import random
+
+class Player:
+    def __init__(self, name, cash, energy):
+        self.name = name
+        self.cash = cash
+        self.energy = energy
+    
+    def buy_car(self, car_price):
+        if self.cash >= car_price:
+            self.cash -= car_price
+            print(f"{self.name} iegādājās mašīnu par {car_price} naudas!")
+        else:
+            print("Tev nav pietiekami daudz naudas, lai iegādātos šo mašīnu.")
+    
+    def buy_house(self, house_price):
+        if self.cash >= house_price:
+            self.cash -= house_price
+            print(f"{self.name} iegādājās māju par {house_price} naudas!")
+        else:
+            print("Tev nav pietiekami daudz naudas, lai iegādātos šo māju.")
+    
+    def work(self):
+        salary = random.randint(50, 200)  # Alga var būt no 50 līdz 200 naudas vienībām
+        self.cash += salary
+        self.energy -= 10
+        print(f"{self.name} strādāja un nopelnīja {salary} naudas! Bet viņa enerģija samazinājās par 10.")
+    
+    def eat_snack(self, snack_cost, energy_boost):
+        if self.cash >= snack_cost:
+            self.cash -= snack_cost
+            self.energy += energy_boost
+            print(f"{self.name} nopirka uzkodu par {snack_cost} naudas un saņēma enerģijas palielinājumu ({energy_boost}).")
+        else:
+            print("Tev nav pietiekami daudz naudas uzkodai.")
+
+    def check_status(self):
+        print(f"{self.name} status: Nauda: {self.cash}, Enerģija: {self.energy}")
+
+
+def main():
+    player_name = input("Ievadi sava spēlētāja vārdu: ")
+    player = Player(player_name, 1000, 100)  # Spēlētājs sāk ar 1000 naudas un 100 enerģijas
+    
+    while True:
+        print("\nIzvēlies darbību:")
+        print("1 - Strādāt")
+        print("2 - Iegādāties mašīnu")
+        print("3 - Iegādāties māju")
+        print("4 - Nopirkt uzkodu")
+        print("5 - Skatīt statusu")
+        print("6 - Beigt spēli")
+        
+        choice = input("Izvēlies darbību (1-6): ")
+
+        if choice == '1':
+            player.work()
+        elif choice == '2':
+            car_price = 500
+            player.buy_car(car_price)
+        elif choice == '3':
+            house_price = 1500
+            player.buy_house(house_price)
+        elif choice == '4':
+            snack_cost = 50
+            energy_boost = 20
+            player.eat_snack(snack_cost, energy_boost)
+        elif choice == '5':
+            player.check_status()
+        elif choice == '6':
+            print("Spēle beidzas.")
+            break
+        else:
+            print("Nepareiza izvēle, mēģini vēlreiz.")
+
+if __name__ == "__main__":
+    main()
